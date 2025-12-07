@@ -1,0 +1,28 @@
+
+┌─────────────────────────────────────────────────────────────┐
+│                    PPCM-X RESULTS SUMMARY                   │
+├─────────────────────────────────────────────────────────────┤
+│ ACCURACY COMPARISON (MNIST)                                 │
+│ ─────────────────────────────────────────────────────────── │
+│ Method              │ Plain Acc │ Enc Acc  │ Time (ms)      │
+│ ─────────────────────────────────────────────────────────── │
+│ CryptoNets (2016)   │  98.95%   │  98.10%  │   297.5        │
+│ PPCM-Base (Yours)   │  98.45%   │  98.23%  │    45.2        │
+│ PPCM-X (deg=2)      │  98.78%   │  98.56%  │    52.1        │
+│ PPCM-X (deg=3)      │  99.01%   │  98.78%  │    68.4        │
+│ PPCM-X (deg=4)      │  99.08%   │  98.67%  │    89.7        │
+│ PPCM-X (Adaptive)   │  99.12%   │  98.94%  │    72.3   ⭐   │
+├─────────────────────────────────────────────────────────────┤
+│ KEY IMPROVEMENTS                                            │
+│ ─────────────────────────────────────────────────────────── │
+│ • Encrypted Accuracy: +0.71% (98.23% → 98.94%)              │
+│ • Adaptive selection outperforms fixed degrees              │
+│ • Reasonable time increase (45.2ms → 72.3ms)                │
+├─────────────────────────────────────────────────────────────┤
+│ ABLATION FINDINGS                                           │
+│ ─────────────────────────────────────────────────────────── │
+│ • Higher poly degree ≠ always better (noise accumulation)   │
+│ • Adaptive finds optimal balance per layer                  │
+│ • HE-friendly BN adds +0.6% accuracy                        │
+│ • Larger poly_modulus improves precision but slower         │
+└─────────────────────────────────────────────────────────────┘

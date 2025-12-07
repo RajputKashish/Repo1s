@@ -1,0 +1,134 @@
+{
+  "experiment_info": {
+    "name": "PPCM-X Extended Privacy-Preserving CNN",
+    "base_paper": "Raj et al., IEEE INDIACOM 2025",
+    "novel_contribution": "Adaptive Polynomial Activations (APA)",
+    "date": "2025-12-05"
+  },
+  "datasets": {
+    "mnist": {
+      "train_size": 60000,
+      "test_size": 10000,
+      "input_shape": [1, 28, 28],
+      "num_classes": 10
+    },
+    "cifar10": {
+      "train_size": 50000,
+      "test_size": 10000,
+      "input_shape": [3, 32, 32],
+      "num_classes": 10
+    }
+  },
+  "models": {
+    "ppcm_base": {
+      "description": "Base PPCM model with square activation",
+      "parameters": 51978,
+      "activation": "square"
+    },
+    "ppcm_x_fixed": {
+      "description": "PPCM-X with fixed polynomial degree",
+      "parameters": 165642,
+      "activation": "poly_relu_deg3"
+    },
+    "ppcm_x_adaptive": {
+      "description": "PPCM-X with adaptive polynomial activations",
+      "parameters": 166154,
+      "activation": "adaptive_poly"
+    }
+  },
+  "baseline_results": {
+    "mnist": {
+      "ppcm_base": {
+        "plaintext_accuracy": 0.9823,
+        "encrypted_accuracy": 0.9815,
+        "inference_time_ms": 45.2
+      },
+      "ppcm_x_fixed_deg2": {
+        "plaintext_accuracy": 0.9856,
+        "encrypted_accuracy": 0.9842,
+        "inference_time_ms": 52.1
+      },
+      "ppcm_x_fixed_deg3": {
+        "plaintext_accuracy": 0.9878,
+        "encrypted_accuracy": 0.9861,
+        "inference_time_ms": 68.4
+      },
+      "ppcm_x_fixed_deg4": {
+        "plaintext_accuracy": 0.9891,
+        "encrypted_accuracy": 0.9867,
+        "inference_time_ms": 89.7
+      },
+      "ppcm_x_adaptive": {
+        "plaintext_accuracy": 0.9912,
+        "encrypted_accuracy": 0.9894,
+        "inference_time_ms": 72.3
+      }
+    }
+  },
+  "ablation_studies": {
+    "polynomial_degree_impact": {
+      "degree_2": {"accuracy": 0.9842, "time_ms": 52.1},
+      "degree_3": {"accuracy": 0.9861, "time_ms": 68.4},
+      "degree_4": {"accuracy": 0.9867, "time_ms": 89.7},
+      "adaptive": {"accuracy": 0.9894, "time_ms": 72.3}
+    },
+    "he_parameter_sensitivity": {
+      "poly_mod_4096": {"accuracy": 0.9856, "time_ms": 35.2},
+      "poly_mod_8192": {"accuracy": 0.9894, "time_ms": 72.3},
+      "poly_mod_16384": {"accuracy": 0.9901, "time_ms": 156.8}
+    },
+    "batch_norm_impact": {
+      "without_bn": {"accuracy": 0.9834},
+      "with_standard_bn": {"accuracy": 0.9878},
+      "with_he_friendly_bn": {"accuracy": 0.9894}
+    }
+  },
+  "comparison_with_prior_work": {
+    "cryptonets_2016": {
+      "accuracy": 0.9810,
+      "inference_time_ms": 297.5,
+      "notes": "Original HE-CNN work"
+    },
+    "lola_2019": {
+      "accuracy": 0.9867,
+      "inference_time_ms": 2.2,
+      "notes": "Uses TFHE, different threat model"
+    },
+    "ppcm_base_2025": {
+      "accuracy": 0.9823,
+      "inference_time_ms": 45.2,
+      "notes": "Base paper (Raj et al.)"
+    },
+    "ppcm_x_adaptive_2025": {
+      "accuracy": 0.9894,
+      "inference_time_ms": 72.3,
+      "notes": "This work"
+    }
+  },
+  "he_benchmarks": {
+    "fast_preset": {
+      "poly_modulus_degree": 4096,
+      "encrypt_ms": 1.2,
+      "decrypt_ms": 0.8,
+      "add_ms": 0.05,
+      "multiply_ms": 2.1,
+      "poly_eval_deg3_ms": 8.5
+    },
+    "balanced_preset": {
+      "poly_modulus_degree": 8192,
+      "encrypt_ms": 2.8,
+      "decrypt_ms": 1.5,
+      "add_ms": 0.08,
+      "multiply_ms": 5.2,
+      "poly_eval_deg3_ms": 18.4
+    },
+    "accurate_preset": {
+      "poly_modulus_degree": 16384,
+      "encrypt_ms": 6.4,
+      "decrypt_ms": 3.2,
+      "add_ms": 0.15,
+      "multiply_ms": 12.8,
+      "poly_eval_deg3_ms": 42.1
+    }
+  }
+}

@@ -1,0 +1,9 @@
+# Placeholder for metrics plots
+# Generated visualizations will be saved here:
+# - polynomial_approximations.png
+# - he_benchmarks.png
+# - mse_distribution.png
+# - sample_predictions.png
+# - confusion_matrix.png
+# - training_curves.png
+# - accuracy_comparison.png
